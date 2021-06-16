@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script>
+            // createElement는 태그를 만드는것(HTML 태그를 만듬)
+            const e = React.createElement;
+
+            // React안에는 component가 들어있는데 이것을 상속함
+            class LikeButton extends React.Component{
+                // class는 기본적으로 constructor가 있다.
+                // 해당 부분은 컴포넌트가 실행될때 가장 먼저 실행된다
+                constructor(props){
+                    super(props)
+                    // State : 바뀔 여지가 있는 부분
+                    this.state = {
+                        liked : false
+                    };
+                }
+
+                render(){
+                    //return e('button', null, 'Like'); // <button>Like</button>의 코드를 만들것이다.
+                    // <button onclick: "{this.setState({liked : true})}, type: 'submit'}" type="submit">Like</button>
+                    return e('button', { onClick: () => {this.setState({liked : true})}, type: 'submit'}, 
+                    this.state.liked === true ? 'Liked' : 'Like',
+                    );
+                }
+            }
+        </script>
+        <script>
+            // 실제 화면에 구성해줌
+            ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+        </script>
+    </body>
+</html>
